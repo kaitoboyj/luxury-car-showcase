@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import hero from "@/assets/hero-car.jpg";
+import { SupportChat } from "@/components/SupportChat";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -61,7 +62,8 @@ function Index() {
           ))}
         </div>
       </section>
-      <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">© 2026 Aurum Motors</footer>
+      <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">© 2021 Aurum Motors</footer>
+      <SupportChat />
     </div>
   );
 }
