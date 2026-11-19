@@ -28,3 +28,5 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Car inventory lives in the owner's own Supabase (not Lovable Cloud), read via VITE_SUPABASE_URL/VITE_SUPABASE_ANON_KEY; writes only through password-checked SECURITY DEFINER RPCs defined in supabase/setup.sql, because the site deploys to Netlify from GitHub.
