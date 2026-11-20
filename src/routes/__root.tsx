@@ -90,6 +90,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
     ],
+    scripts: [
+      {
+        // Applies the saved theme before first paint so there is no flash.
+        children:
+          "(function(){try{var t=localStorage.getItem('bmb-theme');var d=t?t!=='light':true;document.documentElement.classList.toggle('dark',d);}catch(e){document.documentElement.classList.add('dark');}})();",
+      },
+    ],
     links: [
       {
         rel: "stylesheet",

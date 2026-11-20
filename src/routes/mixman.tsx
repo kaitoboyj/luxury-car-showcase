@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState, type FormEvent } from "react";
 import { COLORS, fetchCars, fmt, supabase } from "@/lib/cars";
+import { ThemeToggle } from "@/lib/theme";
 
 export const Route = createFileRoute("/mixman")({
   head: () => ({
@@ -34,9 +35,10 @@ function MixMan() {
 
   if (!ok)
     return (
-      <div className="flex min-h-screen items-center justify-center px-4">
-        <form onSubmit={login} className="w-full max-w-sm space-y-4 border border-border bg-card p-8">
-          <h1 className="font-display text-2xl text-primary">Mix Man</h1>
+      <div className="relative flex min-h-screen items-center justify-center px-4">
+        <ThemeToggle className="absolute right-4 top-4" />
+        <form onSubmit={login} className="w-full max-w-sm space-y-4 border border-border bg-card p-6 sm:p-8">
+          <h1 className="break-words font-display text-2xl text-primary">Mix Man</h1>
           <input type="password" value={pass} onChange={(e) => setPass(e.target.value)} placeholder="Password" className={input} autoFocus />
           {err && <p className="text-sm text-destructive">{err}</p>}
           <button className="w-full bg-primary py-3 text-xs font-semibold uppercase tracking-widest text-primary-foreground">Enter</button>
@@ -94,9 +96,12 @@ function Manager({ pass }: { pass: string }) {
   };
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-12">
-      <h1 className="font-display text-4xl text-primary">Mix Man</h1>
-      <form onSubmit={add} className="mt-8 grid gap-4 border border-border bg-card p-6 md:grid-cols-2">
+    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-12">
+      <div className="flex items-center justify-between gap-4">
+        <h1 className="break-words font-display text-3xl text-primary sm:text-4xl">Mix Man</h1>
+        <ThemeToggle />
+      </div>
+      <form onSubmit={add} className="mt-8 grid gap-4 border border-border bg-card p-4 sm:p-6 md:grid-cols-2">
         <label className="md:col-span-2 text-sm">Car name<input value={name} onChange={(e) => setName(e.target.value)} className={input} /></label>
         <label className="text-sm">Original price ($)<input type="number" value={price} onChange={(e) => setPrice(e.target.value)} className={input} /></label>
         <label className="text-sm">Discount price ($)<input type="number" value={sale} onChange={(e) => setSale(e.target.value)} className={input} /></label>
@@ -118,22 +123,22 @@ function Manager({ pass }: { pass: string }) {
           <input type="file" accept="image/*" multiple onChange={(e) => setFiles(Array.from(e.target.files ?? []).slice(0, 6))} className={input} />
           {files.length > 0 && <span className="text-xs text-muted-foreground">{files.length} selected</span>}
         </label>
-        <div className="md:col-span-2 flex items-center gap-4">
+        <div className="md:col-span-2 flex flex-wrap items-center gap-4">
           <button disabled={busy} className="bg-primary px-8 py-3 text-xs font-semibold uppercase tracking-widest text-primary-foreground disabled:opacity-50">{busy ? "Saving…" : "Add car"}</button>
-          {msg && <span className="text-sm text-muted-foreground">{msg}</span>}
+          {msg && <span className="break-words text-sm text-muted-foreground">{msg}</span>}
         </div>
       </form>
 
       <h2 className="mt-12 font-display text-2xl">Cars on the site ({cars.length})</h2>
       <div className="mt-4 divide-y divide-border border border-border">
         {cars.map((c) => (
-          <div key={c.id} className="flex items-center gap-4 p-3">
-            <img src={c.images[0]} alt="" className="h-14 w-20 object-cover" />
-            <div className="flex-1 text-sm">
-              <p className="font-semibold">{c.name}</p>
-              <p className="text-muted-foreground">{fmt(c.sale_price)} · {c.stock} in stock · {c.colors.join(", ")}</p>
+          <div key={c.id} className="flex items-center gap-3 p-3 sm:gap-4">
+            <img src={c.images[0]} alt="" className="h-14 w-16 shrink-0 object-cover sm:w-20" />
+            <div className="min-w-0 flex-1 text-sm">
+              <p className="truncate font-semibold">{c.name}</p>
+              <p className="truncate text-muted-foreground">{fmt(c.sale_price)} · {c.stock} in stock · {c.colors.join(", ")}</p>
             </div>
-            <button onClick={() => remove(c.id, c.name)} className="border border-destructive px-3 py-1 text-xs text-destructive hover:bg-destructive hover:text-destructive-foreground">Remove</button>
+            <button onClick={() => remove(c.id, c.name)} className="shrink-0 border border-destructive px-3 py-1 text-xs text-destructive hover:bg-destructive hover:text-destructive-foreground">Remove</button>
           </div>
         ))}
       </div>
