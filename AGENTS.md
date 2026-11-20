@@ -30,3 +30,5 @@ use the editor.
 <!-- LOVABLE:END -->
 
 - Car inventory lives in the owner's own Supabase (not Lovable Cloud), read via VITE_SUPABASE_URL/VITE_SUPABASE_ANON_KEY; writes only through password-checked SECURITY DEFINER RPCs defined in supabase/setup.sql, because the site deploys to Netlify from GitHub.
+- Netlify deploy: netlify.toml sets NITRO_PRESET=netlify (the build otherwise defaults to Cloudflare) and publishes dist.
+- Public-site text lives in src/lib/i18n.tsx dictionaries (one per language); the chosen language is kept in the visitor's browser. Add every new visible string there.
