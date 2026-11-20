@@ -2,12 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import hero from "@/assets/hero-car.jpg";
-import logo from "@/assets/motorsbay-logo.png.asset.json";
+import logo from "@/assets/motorsbay-logo.png";
 import { fetchCars, fmt, offPct, type Car } from "@/lib/cars";
 import { I18nProvider, LanguagePrompt, LanguageSelect, useI18n } from "@/lib/i18n";
 
 const TG = "https://t.me/motorsbaychat";
-const OG = "https://id-preview--dd8521ae-417a-4bd6-9a01-76acdd7749e6.lovable.app/__l5e/assets-v1/b0fb34c8-998c-4270-ad84-bfc2a423cfc9/supercar-showcase.png";
+const SITE = ((import.meta.env["VITE_SITE_URL"] as string | undefined) ?? "").replace(/\/+$/, "");
+const OG = `${SITE}/supercar-showcase.png`;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -82,7 +83,7 @@ function Page() {
     <div className="min-h-screen">
       <header className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-8 py-6">
         <a href="/" className="flex items-center gap-3">
-          <img src={logo.url} alt="Best Motors Bay logo" className="h-12 w-12 object-contain" />
+          <img src={logo} alt="Best Motors Bay logo" className="h-12 w-12 object-contain" />
           <span className="font-display text-xl tracking-[0.2em] text-primary">BEST MOTORS BAY</span>
         </a>
         <nav className="flex items-center gap-4 md:gap-8 text-xs uppercase tracking-[0.25em] text-muted-foreground">
@@ -127,7 +128,7 @@ function Page() {
         )}
       </section>
       <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
-        <img src={logo.url} alt="" className="mx-auto mb-3 h-10 w-10 object-contain" />© 2021 Best Motors Bay
+        <img src={logo} alt="" className="mx-auto mb-3 h-10 w-10 object-contain" />© 2021 Best Motors Bay
       </footer>
       <a href={TG} target="_blank" rel="noreferrer" className="fixed bottom-6 right-6 z-50 bg-primary px-5 py-3 text-[11px] font-semibold uppercase tracking-widest text-primary-foreground shadow-2xl hover:opacity-90">{t.chat}</a>
     </div>

@@ -1,5 +1,5 @@
 -- Best Motors Bay: run this once in Supabase > SQL Editor.
--- 1) CHANGE the password on the last line before running.
+-- 1) The Mix Man password is set to 'choose' at the bottom of this file (also in .env as MIXMAN_PASSWORD).
 create extension if not exists pgcrypto;
 
 create table if not exists public.cars (
@@ -55,6 +55,6 @@ create policy "Public read car images" on storage.objects for select using (buck
 drop policy if exists "Upload car images" on storage.objects;
 create policy "Upload car images" on storage.objects for insert to anon, authenticated with check (bucket_id = 'car-images');
 
--- YOUR MIX MAN PASSWORD (change 'CHANGE_ME' to your own):
-insert into public.mixman_secret (id, pass_hash) values (1, crypt('CHANGE_ME', gen_salt('bf')))
+-- MIX MAN PASSWORD (also stored in .env as MIXMAN_PASSWORD):
+insert into public.mixman_secret (id, pass_hash) values (1, crypt('choose', gen_salt('bf')))
 on conflict (id) do update set pass_hash = excluded.pass_hash;
